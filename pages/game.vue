@@ -63,8 +63,12 @@ export default {};
   display: grid;
   justify-content: center;
   align-content: center;
-  gap: 50px;
+  grid-template-rows: 1fr 1fr;
   height: 100%;
+  padding: 40px 0;
+  @include grid("desktop") {
+    padding: 80px 0;
+  }
 }
 .name {
   font-weight: bold;
@@ -84,6 +88,10 @@ button {
   border: 4px solid $blue-light;
   color: $white;
   font-size: 16px;
+  transition: border ease-in-out 0.25s;
+  &:hover {
+    border-color: $blue;
+  }
 }
 .opponents {
   display: grid;
