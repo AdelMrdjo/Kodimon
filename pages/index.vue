@@ -41,7 +41,7 @@ export default {};
 button {
   cursor: pointer;
   height: 48px;
-  width: 240px;
+  width: 230px;
   border-radius: 50px;
   background: $blue;
   border: 4px solid $blue-light;
