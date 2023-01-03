@@ -1,0 +1,60 @@
+$start-delay: 0 !default;
+
+@mixin appear {
+  @include trans('appear');
+  opacity: 0;
+
+  &.appear {
+    opacity: 1;
+  }
+}
+
+@mixin appear-now {
+  opacity: 1;
+  transform: none;
+}
+
+@mixin appear-stagger($numItems, $delay: 1, $start-delay: $start-delay) {
+  @for $i from 1 through $numItems {
+    &:nth-child(#{$i}) {
+      $item-delay: trans-delay($delay) * ($i - 1);
+      transition-delay: trans-delay($start-delay) + $item-delay;
+    }
+  }
+}
+
+%appear {
+  @include grid('desktop') {
+    @include appear;
+    @include trans-delay($start-delay);
+  }
+}
+
+%appear-text {
+  @include grid('desktop') {
+    @include appear;
+    transform: translateY($transition-offset * -1);
+
+    &.appear {
+      transform: none;
+    }
+  }
+}
+
+%appear-box {
+  @extend %appear-text;
+}
+
+%appear-horizontal {
+  @extend %appear-text;
+  @include grid('desktop') {
+    transform: translateX($transition-offset * -1);
+  }
+}
+
+%appear-inverse {
+  @extend %appear-box;
+  @include grid('desktop') {
+    transform: translateY($transition-offset);
+  }
+}

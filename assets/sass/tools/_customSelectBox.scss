@@ -1,0 +1,82 @@
+%custom-select-box {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  & .hidden-part {
+    position: absolute;
+    margin-top: 4px;
+    width: 100%;
+    background: $dark-blue;
+    border: 1px solid #e9edf3;
+    border: 1px solid $primary2;
+    box-shadow: 0px 4px 20px 2px rgba(7, 17, 32, 0.08);
+    border-radius: 4px;
+    padding: 12px 8px;
+    transition: opacity 0.1s ease-in-out;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { 
+      display: none;
+    }
+    & .item {
+      min-height: 44px;
+      font-size: 18px;
+      color: $white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: color ease-in-out 0.15s, background ease-in-out 0.15s;
+      &:hover {
+        color: $gray2;
+      }
+      &.active {
+        color: $white;
+        background: $primary2;
+      }
+    }
+  }
+  & .visible-part {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    background: $gray1;
+    background: transparent;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: border ease-in-out 0.15s;
+    @include grid("laptop") {
+      height: 64px;
+    }
+    &:hover {
+      border: 1px solid $primary2;
+    }
+    &.active {
+      border: 1px solid $primary2;
+    }
+    &.error {
+      border: 1px solid $danger;
+    }
+    & p {
+      color: $white;
+      font-size: 16px;
+      text-align: left;
+      padding: 14px 10px;
+    }
+    & i {
+      all: unset;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $primary2;
+      transition: transform ease-in-out 0.1s;
+      &.rotate {
+        transform: rotateZ(-180deg) translateY(50%);
+      }
+    }
+  }
+}

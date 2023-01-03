@@ -1,0 +1,56 @@
+@keyframes mobile-menu-opening {
+  0% {
+    opacity: 0;
+    display: block;
+    z-index: 3;
+  }
+}
+@keyframes mobile-menu-hiden {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    z-index: 3;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    z-index: 3;
+  }
+}
+@keyframes mobile-menu-links-delay {
+  0% {
+    opacity: 0;
+    left: 50px;
+  }
+  100% {
+    opacity: 1;
+    left: 0px;
+  }
+}
+@keyframes show-cookie-message--large {
+  0% {
+    opacity: 0;
+    bottom: -200px;
+  }
+  80% {
+    bottom: 45px;
+  }
+  90% {
+    bottom: 25px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 35px;
+  }
+}
+@keyframes show-cookie-message--normal {
+  0% {
+    opacity: 0;
+    bottom: -200px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0px;
+  }
+}

@@ -1,0 +1,29 @@
+// Transitions
+$transition-offset: spacing(1);
+
+// prettier-ignore
+$trans: (
+  duration: (
+    'default': 500ms,
+    'fast': 300ms,
+    'slow': 800ms,
+    'slower': 1400ms
+  ),
+  timing: (
+    'default': $ease-out-quart,
+    'in': $ease-in-quart,
+    'in-out': $ease-in-out-quart,
+    'bounce': $ease-out-back
+  ),
+  delay: (
+    // 'default': 200ms
+  ),
+  presets: (
+    'appear': (property: (opacity, transform), duration: 'slow'),
+    'link': (property: (opacity, color), duration: 'fast'),
+    'button': (duration: 'fast'),
+    'fast': (duration: 'fast'),
+    'slow': (duration: 'slow'),
+    'bounce': (duration: 'fast', timing: 'bounce')
+  )
+);

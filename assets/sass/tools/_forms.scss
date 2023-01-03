@@ -1,0 +1,85 @@
+%form-input {
+  @include trans;
+  @include plumber-size('p-medium', $size-only: true);
+  appearance: none;
+  background-color: $form-input-background-color;
+  border: 1px solid transparent;
+  border-radius: $border-radius;
+  box-shadow: none;
+  color: $form-input-font-color;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: 1;
+  padding: spacing(1.1) spacing(1.5);
+  width: 100%;
+  height: auto;
+  min-height: spacing(3.5);
+
+  &:focus {
+    box-shadow: $box-shadow;
+    border-color: $form-input-border-color--active !important;
+  }
+
+  &:hover {
+    border-color: $form-input-border-color--hover;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: $form-input-font-color !important;
+    opacity: 0.5;
+  }
+}
+
+%form-input--onwhite {
+  background-color: $beige-1;
+}
+
+%form-textarea {
+  @extend %form-input;
+  padding-bottom: spacing(1);
+  padding-top: spacing(1);
+  outline: 0;
+  min-height: spacing(9.5);
+  line-height: $grid-height * 3;
+}
+
+%form-choice {
+  @include size(spacing(1.2));
+  @include trans('fast');
+  background: $form-choice-background-color;
+  border: 1px solid $form-choice-border-color;
+  display: block;
+  position: relative;
+  transform: translateY(-1px);
+
+  &::before {
+    @include position(absolute, 3px);
+    @include trans('fast');
+    background: $form-choice-active-color;
+    content: '';
+    opacity: 0;
+  }
+}
+%form-choice--round {
+  border-radius: 100%;
+  &::before {
+    border-radius: 100%;
+  }
+}
+%form-choice--onwhite {
+  background: $form-choice-background-color--onwhite;
+}
+%form-choice--hover {
+  border-color: $form-choice-active-color;
+}
+%form-choice--active {
+  border-color: $form-choice-active-color;
+
+  &::before {
+    opacity: 1;
+  }
+}

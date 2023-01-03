@@ -1,0 +1,25 @@
+@mixin positionize(
+  $type,
+  $top: "-1",
+  $right: "-1",
+  $bottom: "-1",
+  $left: "-1"
+) {
+  @if $type != null {
+    position: $type;
+  }
+  @if $top != null {
+    top: $top;
+  }
+  @if $right != null {
+    right: $right;
+  }
+  @if $bottom != null {
+    bottom: $bottom;
+  }
+  @if $left != null {
+    left: $left;
+  }
+}
+// Example
+// @include positionize(relative, top, right, bottom, left);

@@ -1,0 +1,79 @@
+@charset 'UTF-8';
+
+/// plumber size mixin for ease of reusing and making responsive text sizes.
+///
+/// @require {function} ms
+/// @require {mixin} plumber
+/// @require {mixin} grid
+
+$_plumber-size-defaults: (
+  'size': null,
+  'line': null,
+  'top': 0,
+  'bottom': 0,
+);
+
+$plumber-size-baseline: .2 !default;
+$plumber-size-grid-height: 1rem !default;
+$plumber-size-grids: ('desktop': 1200px) !default;
+$plumber-size: (
+  'h1': (
+    'default': ('size': 6, 'line': 4, 'top': 0, 'bottom': 0),
+    'desktop': ('size': 8, 'line': 5, 'top': 0, 'bottom': 0, 'baseline': .4),
+  ),
+  'p': ('size': 1, 'line': 2),
+) !default;
+
+@mixin plumber-size($key, $top: null, $bottom: null, $size-only: false) {
+  $current: map-get($plumber-size, $key);
+  @if not $current {
+    @error 'Size "#{$key}" not found. Please specify it insite `$plumber-size` variable.';
+  }
+  // Force 'default' key.
+  @if not map-has-key($current, 'default') { $current: ('default': $current); }
+  // Add default `baseline` key to defaults.
+  $defaults: map-merge($_plumber-size-defaults, ('baseline': $plumber-size-baseline));
+  // Set defaults.
+  $defaults: map-merge($defaults, map-get($current, 'default'));
+
+  @each $grid, $values in $current {
+    $values: map-merge($defaults, $values);
+    $overrides: (
+      'top': if($top, $top, map-get($values, 'top')),
+      'bottom': if($bottom, $bottom, map-get($values, 'bottom')),
+    );
+    $values: map-merge($values, $overrides);
+
+    @if $grid == 'default' {
+      @if $size-only {
+        font-size: #{ms(map-get($values, 'size')) * $plumber-size-grid-height};
+      } @else {
+        @include plumber(
+          $baseline: map-get($values, 'baseline'),
+          $font-size: ms(map-get($values, 'size')),
+          $line-height: map-get($values, 'line'),
+          $leading-top: map-get($values, 'top'),
+          $leading-bottom: map-get($values, 'bottom')
+        );
+      }
+    } @else {
+      @if not map-has-key($plumber-size-grids, $grid) {
+        @error 'Grid "#{$grid}" not found. Please specify it inside the `$plumber-size-grids` variable.';
+      }
+      @include grid(map-get($plumber-size-grids, $grid)) {
+        @if $size-only {
+          font-size: #{ms(map-get($values, 'size')) * $plumber-size-grid-height};
+        } @else {
+          @include plumber(
+            $baseline: map-get($values, 'baseline'),
+            $font-size: ms(map-get($values, 'size')),
+            $line-height: map-get($values, 'line'),
+            $leading-top: map-get($values, 'top'),
+            $leading-bottom: map-get($values, 'bottom')
+          );
+        }
+      }
+    }
+
+  }
+}

@@ -1,0 +1,8 @@
+@charset 'UTF-8';
+
+$spacing: 1rem !default;
+$spacing-factor: 1 !default;
+
+@function spacing($increment: 1) {
+  @return $spacing * $spacing-factor * $increment;
+}

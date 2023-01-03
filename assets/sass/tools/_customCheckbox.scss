@@ -1,0 +1,43 @@
+// CUSTOM CHECKBOX
+%custom-checkbox {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  grid-gap: 18px;
+  & .box {
+    width: 15px;
+    height: 15px;
+    background: $white;
+    cursor: pointer;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+  }
+  & .square {
+    width: 8px;
+    height: 8px;
+    background: $primary2;
+    opacity: 0;
+    transition: opacity ease-in-out 0.15s;
+    &.show-square {
+      opacity: 1;
+    }
+  }
+  & p {
+    display: inline;
+    cursor: pointer;
+    position: relative;
+    top: -6px;
+  }
+  & a {
+    color: $primary3;
+  }
+  & .checkbox-hide {
+    position: absolute;
+    top: -20px;
+    left: 3px;
+    z-index: -1;
+    opacity: 0;
+  }
+}

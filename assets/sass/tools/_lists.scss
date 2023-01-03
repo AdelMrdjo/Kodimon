@@ -1,0 +1,32 @@
+%list {
+  @include plumber-box($margin: 2);
+
+  li {
+    @extend %p;
+    margin-left: spacing(2);
+    margin-bottom: 0 !important;
+    position: relative;
+
+    &::before {
+      @include size(9px);
+      background: $orange;
+      border-radius: 3px;
+      content: '';
+      display: block;
+      left: spacing(-1.5);
+      position: absolute;
+      top: spacing(1.1);
+      transform: translateY(-50%);
+    }
+  }
+}
+
+%ul {
+  @extend %list;
+  list-style-type: none;
+}
+
+%ol {
+  @extend %list;
+  list-style-type: decimal;
+}

@@ -1,0 +1,25 @@
+%message--success {
+  margin-top: 20px;
+  padding: 20px 0px;
+  border: 1px solid $msg-success-border-color;
+  border-radius: 5px;
+  background: $msg-success-background;
+  padding: 20px;
+  color: $msg-success-font-color;
+  font-size: 18.25px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: center;
+}
+
+%message--error {
+  background: $msg-error-background;
+  padding: 10px;
+  margin-top: 15px;
+  border: 1px solid $msg-error-border-color;
+  border-radius: $border-radius;
+  font-size: 18.25px;
+  color: $msg-error-font-color;
+  font-weight: 400;
+  line-height: 32px;
+}

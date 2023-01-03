@@ -1,0 +1,7 @@
+%media-box {
+  @include plumber-box($margin: 4);
+
+  @include grid('desktop') {
+    @include plumber-box($margin: 6);
+  }
+}

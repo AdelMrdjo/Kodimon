@@ -1,0 +1,19 @@
+%button {
+  font-weight: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: $primary3;
+  background: $primary2;
+  display: block;
+  text-align: center;
+  transition: color ease-in-out 0.25s, background ease-in-out 0.25s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: $border-radius / 2;
+  &:hover,
+  &.active {
+    color: $gray1;
+    background: $primary1;
+  }
+}

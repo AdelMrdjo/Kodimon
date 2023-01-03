@@ -1,0 +1,21 @@
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-font-smoothing: antialiased;
+  appearance: none;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  border: none;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

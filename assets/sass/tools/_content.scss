@@ -1,0 +1,85 @@
+%wrapper-two-columns {
+  width: $container;
+  display: grid;
+  grid-template-columns: auto;
+  > div {
+    width: 100%;
+    text-align: center;
+  }
+  @include grid(200px, $to: 480px) {
+    padding: 10px 10px $section-padding-bottom;
+  }
+  @include grid(480px) {
+    padding: $section-padding-top 20px $section-padding-bottom;
+  }
+  @include grid("tablet-large") {
+    grid-template-columns: 50% 50%;
+    padding: 0px 20px $section-padding-bottom--medium;
+  }
+
+  @include grid("desktop-giant") {
+    width: $container-large;
+    margin: 0 auto;
+    padding: 0px 0px $section-padding-bottom--medium;
+  }
+}
+
+%wrapper-three-columns {
+  width: $container;
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: spacing(3);
+  justify-content: center;
+  > div {
+    width: 100%;
+    text-align: left;
+  }
+  @include grid("tablet-large") {
+    grid-template-columns: auto auto auto;
+    grid-gap: $content-padding-horizontal;
+  }
+
+  @include grid("desktop-giant") {
+    width: $container-large;
+    margin: 0 auto;
+    grid-gap: spacing(2.5);
+  }
+}
+
+%client-wrapper {
+  width: $container;
+  display: grid;
+  grid-template-columns: 100%;
+  justify-content: center;
+  grid-gap: spacing(1);
+  div {
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius;
+    height: 200px;
+    transition: border-color 0.2s ease-in-out;
+    &:hover {
+      border-color: $lightblue;
+    }
+  }
+  img {
+    @include positionize(relative, 50%, null, null, 50%);
+    transform: translate(-50%, -50%);
+    width: 136px;
+  }
+  @include grid(480px, $to: "tablet-large") {
+    grid-template-columns: 48.5% 49%;
+    div {
+      height: 230px;
+    }
+  }
+  @include grid("tablet-large") {
+    grid-template-columns: 24% 24% 24% 24%;
+    margin: 0 auto;
+    div {
+      height: 230px;
+    }
+  }
+  @include grid(1300px) {
+    width: 1300px;
+  }
+}

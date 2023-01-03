@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+/// Shorthand that strips the unit from bourbon's modular-scale function.
+///
+/// @require {function} modular-scale
+/// @require {function} strip-unit
+
+@function ms($increment) {
+  @return strip-unit(modular-scale($increment));
+}

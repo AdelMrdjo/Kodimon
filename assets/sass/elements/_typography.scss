@@ -1,0 +1,53 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+li,
+button {
+  font-family: "Bellota", cursive;
+}
+
+h1 {
+  font-style: normal;
+  font-size: 36px;
+  line-height: 48px;
+  letter-spacing: -0.9px;
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 32px;
+
+  @include grid("tablet") {
+    font-size: 36px;
+    line-height: 50px;
+  }
+}
+
+h4 {
+  font-size: 24px;
+  letter-spacing: -0.43px;
+  line-height: 36px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+
+a {
+  font-size: 16px;
+  text-decoration: none;
+  line-height: 32px;
+}
+
+.bold {
+  font-weight: 700;
+}

@@ -1,0 +1,129 @@
+form {
+  .field {
+    margin-bottom: spacing(1.5);
+  }
+}
+
+fieldset {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: spacing(1);
+  padding: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: spacing(1);
+}
+
+input,
+select,
+textarea {
+  display: block;
+  font-family: $font-family;
+  font-size: 1rem;
+}
+
+[type='color'],
+[type='date'],
+[type='datetime'],
+[type='datetime-local'],
+[type='email'],
+[type='month'],
+[type='number'],
+[type='password'],
+[type='search'],
+[type='tel'],
+[type='text'],
+[type='time'],
+[type='url'],
+[type='week'],
+input:not([type]) {
+  @extend %form-input;
+  outline: 0 !important;
+}
+
+[type='search'] {
+  -webkit-appearance: textfield;
+}
+
+textarea {
+  @extend %form-textarea;
+  resize: vertical;
+}
+
+[type='checkbox'],
+[type='radio'] {
+  display: inline;
+  margin-right: spacing(1);
+}
+
+[type='file'] {
+  margin-bottom: spacing(1);
+  width: 100%;
+}
+
+select {
+  @extend %form-input;
+  width: 100%;
+}
+
+[type='checkbox'],
+[type='radio'],
+[type='file'],
+select {
+  &:focus {
+    outline: 0;
+  }
+}
+
+.checkbox {
+  label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    height: spacing(2);
+    margin: 0;
+
+    &:hover {
+      .box {
+        @extend %form-choice--hover;
+      }
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked + .box {
+      @extend %form-choice--active;
+    }
+  }
+
+  .box {
+    @extend %form-choice;
+    margin-right: spacing(0.5);
+    transform: translateY(0.005em);
+  }
+
+  .label {
+    @include plumber-size('p-small', $size-only: true);
+    color: $blue-dark;
+    display: inline-flex;
+    font-weight: 300;
+  }
+}
+
+.form-on-white {
+  input,
+  textarea {
+    background: $beige-1 !important;
+  }
+}

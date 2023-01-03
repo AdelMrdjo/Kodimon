@@ -1,0 +1,55 @@
+@charset 'UTF-8';
+
+/// Manage grid media sizes.
+///
+/// @example scss
+///   $grids: (
+///    'desktop': 1200px,
+///    'large-desktop': 1800px,
+///   );
+///
+///   .element {
+///     @include grid('desktop') {
+///       // Desktop and up specific style
+///     }
+///     @include grid('large-desktop', $down: true) {
+///       // Large desktop and down specific style
+///     }
+///     @include grid('desktop', $to: 'large-desktop') {
+///       // Desktop and only desktop specific style
+///     }
+///     @include grid(200px, $to: 300px) {
+///       // Custom size query
+///     }
+///   }
+///
+
+$grids: ('desktop': 1200px) !default;
+
+/// Return width of the given grid.
+@function grid-width($key, $grids: $grids) {
+  @return map-get($grids, $key);
+}
+
+// Get the grid query for the given key or value.
+@function grid-query($key, $to: null, $down: false, $grids: $grids) {
+  $width: if(type-of($key) == 'string', map-get($grids, $key), $key);
+  $to-width: if(type-of($to) == 'string', grid-width($to), $to);
+  $query: null;
+
+  @if $down {
+    $query: 'only screen and (max-width: #{$width - 1px})';
+    @if ($to) { $query: '#{$query} and (min-width: #{$to-width})'; }
+  } @else {
+    $query: 'only screen and (min-width: #{$width})';
+    @if ($to) { $query: '#{$query} and (max-width: #{$to-width - 1px})'; }
+  }
+
+  @return $query;
+}
+
+// Return @content in a grid.
+@mixin grid($key, $to: null, $down: false, $grids: $grids) {
+  $query: grid-query($key, $to, $down, $grids);
+  @media #{$query} { @content; }
+}

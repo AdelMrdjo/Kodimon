@@ -1,0 +1,78 @@
+// Typography & Vertical rhythm
+$font-family: "Roboto", sans-serif;
+$font-family-heading: "Roboto", sans-serif;
+$baseline: 0.138;
+$baseline-heading: 0.084473;
+$line-height: $grid-height * 2;
+
+$bourbon: (
+  "modular-scale-ratio": 1.125
+);
+
+// @include plumber-set-defaults(
+//   $grid-height: $grid-height,
+//   $baseline: $baseline,
+//   $font-size: ms(6),
+//   $line-height: 3,
+//   $leading-top: 0,
+//   $leading-bottom: 0
+// );
+
+// Text sizes
+$plumber-size-baseline: $baseline;
+$plumber-size-grid-height: $grid-height;
+$plumber-size-grids: (
+  "tablet": grid-width("tablet"),
+  "desktop": grid-width("desktop"),
+  "desktop-huge": grid-width("desktop-huge")
+);
+// prettier-ignore
+$plumber-size: (
+  'h1': (
+    'default': ('size': 12, 'line': 5, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 16, 'line': 8),
+  ),
+  'h2': (
+    'default': ('size': 11, 'line': 5, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 14, 'line': 6)
+  ),
+  'h3': (
+    'default': ('size': 9, 'line': 4, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 12, 'line': 5)
+  ),
+  'h4': (
+    'default': ('size': 8, 'line': 4, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 11, 'line': 5)
+  ),
+  'h5': (
+    'default': ('size': 7, 'line': 3, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 9, 'line': 4)
+  ),
+  'h6': (
+    'default': ('size': 6, 'line': 2, 'top': 2, 'bottom': 2, 'baseline': $baseline-heading),
+    'desktop': ('size': 8, 'line': 3)
+  ),
+  'p': (
+    'default': ('size': 6, 'line': 3, 'bottom': 2),
+    'desktop': ('size': 7, 'line': 4, 'bottom': 2)
+  ),
+  'p-small': ('size': 5, 'line': 3, 'bottom': 1),
+  'p-medium': ('size': 6, 'line': 3, 'bottom': 2),
+  'p-large': ('size': 7, 'line': 4, 'bottom': 1),
+  'blockquote': (
+    'default': ('size': 9, 'line': 4, 'baseline': $baseline-heading),
+    'desktop': ('size': 12, 'line': 5)
+  ),
+  'home-title': (
+    'default': ('size': 12, 'line': 5, 'top': 0, 'bottom': 2, 'baseline': $baseline-heading),
+    'tablet': ('size': 16, 'line': 8),
+    'desktop': ('size': 20, 'line': 11),
+    'desktop-huge': ('size': 23, 'line': 17),
+  ),
+  'home-subtitle': (
+    'default': ('size': 6, 'line': 3),
+    'tablet': ('size': 7, 'line': 4),
+    'desktop': ('size': 8, 'line': 5),
+    'desktop-huge': ('size': 9, 'line': 6),
+  ),
+);

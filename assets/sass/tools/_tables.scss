@@ -1,0 +1,24 @@
+%table {
+  border: $table-border;
+
+  tr {
+    background: $table-background-color;
+
+    &:nth-child(2n) {
+      background-color: $table-background-color--alt;
+    }
+  }
+
+  th {
+    background: $table-header-background-color;
+    color: $table-header-font-color;
+    padding: spacing(1);
+    border: $table-border;
+    font-weight: 600;
+  }
+
+  td {
+    border: $table-border;
+    padding: spacing(1);
+  }
+}
