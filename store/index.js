@@ -9,7 +9,9 @@ export const mutations = {
   SET_PLAYER(state, data) {
     state[data.slot] = {
       "name": data.data.name,
+      "slot": data.slot,
       "image": data.data.sprites.other.dream_world.front_default,
+      "energy": 100.00,
       "hp": data.data.stats.filter(el => {
         return el.stat.name === 'hp'
       })[0].base_stat,
@@ -29,5 +31,8 @@ export const mutations = {
   },
   SET_ATTACKER(state, data) {
     state.attacker = data;
+  },
+  UPDATE_DEFENDER_HP(state, data) {
+    state[data.slot].energy = (state[data.slot].energy - data.hp).toFixed(2)
   }
 };

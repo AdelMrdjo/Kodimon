@@ -3,6 +3,15 @@
     <div class="in-game-screen">
       <div class="opponents">
         <div class="opponent">
+          <div class="progress">
+            <p>{{ player1.energy }} %</p>
+            <div class="progress-bar">
+              <div
+                class="loaded"
+                :style="{ width: `${player1.energy}%` }"
+              ></div>
+            </div>
+          </div>
           <p class="name">{{ player1.name }}</p>
           <img :src="player1.image" alt="opponent-1" />
           <p class="label">Stats</p>
@@ -19,9 +28,18 @@
             alt="arrow"
             :class="{ rotate: attacker == 1 }"
           />
-          <button>Attack! {{ attacker }}</button>
+          <button @click="attack()">Attack! {{ attacker }}</button>
         </div>
         <div class="opponent">
+          <div class="progress">
+            <p>{{ player2.energy }} %</p>
+            <div class="progress-bar">
+              <div
+                class="loaded"
+                :style="{ width: `${player2.energy}%` }"
+              ></div>
+            </div>
+          </div>
           <p class="name">{{ player2.name }}</p>
           <img :src="player2.image" alt="opponent-2" />
           <p class="label">Stats</p>
@@ -69,9 +87,23 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_PLAYER", "GAME_STARTED"]),
+    ...mapMutations(["SET_PLAYER", "GAME_STARTED", "UPDATE_DEFENDER_HP"]),
     setGameStarted(bool) {
       this.GAME_STARTED(bool);
+    },
+    updateDefenderHP(slot, hp) {
+      this.UPDATE_DEFENDER_HP({
+        slot: slot,
+        hp: hp,
+      });
+    },
+    attack() {
+      let attacker = this.attacker == 1 ? this.player1 : this.player2;
+      let defender = this.attacker == 1 ? this.player2 : this.player1;
+      let weakened_attack = attacker.attack / 2; // divide his attack with 2
+      let calc_percent = 100 - defender.defense; // 100% - defense
+      let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
+      this.updateDefenderHP(defender.slot, get_total_hp);
     },
   },
 };
@@ -114,6 +146,20 @@ export default {
 }
 .opponent img {
   height: 150px;
+}
+.progress-bar {
+  width: 220px;
+  height: 24px;
+  border: 4px solid $green;
+  margin: 0 auto;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  .loaded {
+    height: 100%;
+    background: $green-light;
+    border-radius: 12px;
+    transition: width ease-in-out 0.25s;
+  }
 }
 .stats {
   text-align: left;
