@@ -2,6 +2,11 @@
   <div class="container">
     <ScreenNewGame @startNewGame="newGame()" v-show="!isGameStarted" />
     <ScreenInGame @startNewGame="newGame()" v-if="isGameStarted" />
+    <ScreenGameOver
+      @startNewGame="newGame()"
+      v-if="isGameStarted && winner"
+      :winner="winner"
+    />
   </div>
 </template>
 <script>
@@ -17,6 +22,9 @@ export default {
     },
     isGameStarted() {
       return this.$store.state.isGameStarted;
+    },
+    winner() {
+      return this.$store.state.winner;
     },
   },
   methods: {

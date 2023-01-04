@@ -28,7 +28,7 @@
             alt="arrow"
             :class="{ rotate: attacker == 1 }"
           />
-          <button @click="attack()">Attack! {{ attacker }}</button>
+          <button @click="attack()">Attack!</button>
         </div>
         <div class="opponent">
           <div class="progress">
@@ -52,14 +52,7 @@
         </div>
       </div>
       <div class="menu-with-logs">
-        <div class="menu-container">
-          <p class="label">Menu</p>
-          <div class="buttons">
-            <button @click="setGameStarted(false)">Home</button>
-            <button @click="$emit('startNewGame')">New game</button>
-            <button>New opponent</button>
-          </div>
-        </div>
+        <MenuButtons @startNewGame="$emit('startNewGame')" />
         <div class="logs-container">
           <p class="label">Logs</p>
           <div class="logs">
@@ -88,10 +81,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_PLAYER", "GAME_STARTED", "UPDATE_DEFENDER_HP"]),
-    setGameStarted(bool) {
-      this.GAME_STARTED(bool);
-    },
+    ...mapMutations(["SET_PLAYER", "UPDATE_DEFENDER_HP"]),
     updateDefenderHP(attacker, defender, hp) {
       this.UPDATE_DEFENDER_HP({
         attacker: attacker,
@@ -208,18 +198,6 @@ export default {
   grid-template-columns: auto 50%;
   justify-content: space-between;
   align-items: flex-end;
-}
-.menu-container {
-  width: 260px;
-  .buttons {
-    border: 4px solid $yellow;
-    background: $yellow-light;
-    border-radius: 16px;
-    padding: 12px 0;
-    display: grid;
-    justify-content: center;
-    gap: 12px;
-  }
 }
 .logs-container {
   .logs {

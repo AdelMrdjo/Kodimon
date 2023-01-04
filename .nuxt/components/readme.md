@@ -6,6 +6,8 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
-- `<HomeLogo>` | `<home-logo>` (components/layout/HomeLogo.vue)
+- `<HomeLogo>` | `<home-logo>` (components/blocks/HomeLogo.vue)
+- `<MenuButtons>` | `<menu-buttons>` (components/blocks/MenuButtons.vue)
+- `<ScreenGameOver>` | `<screen-game-over>` (components/screens/ScreenGameOver.vue)
 - `<ScreenInGame>` | `<screen-in-game>` (components/screens/ScreenInGame.vue)
 - `<ScreenNewGame>` | `<screen-new-game>` (components/screens/ScreenNewGame.vue)

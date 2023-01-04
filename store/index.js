@@ -31,7 +31,8 @@ export const mutations = {
     state.isGameStarted = data
   },
   SET_ATTACKER(state, data) {
-    state.attacker = data;
+    state.attacker = data; // set attacker at new game depending higher speed
+    state.winner = null // reset winner
   },
   UPDATE_DEFENDER_HP(state, data) {
     let new_hp = (state[data.defender].energy - data.hp).toFixed(2)

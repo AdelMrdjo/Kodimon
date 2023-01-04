@@ -1,6 +1,12 @@
 {
   "HomeLogo": {
-    "description": "Auto imported from components/layout/HomeLogo.vue"
+    "description": "Auto imported from components/blocks/HomeLogo.vue"
+  },
+  "MenuButtons": {
+    "description": "Auto imported from components/blocks/MenuButtons.vue"
+  },
+  "ScreenGameOver": {
+    "description": "Auto imported from components/screens/ScreenGameOver.vue"
   },
   "ScreenInGame": {
     "description": "Auto imported from components/screens/ScreenInGame.vue"
