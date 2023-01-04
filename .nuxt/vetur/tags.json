@@ -1,1 +1,8 @@
-{}
+{
+  "HomeLogo": {
+    "description": "Auto imported from components/layout/HomeLogo.vue"
+  },
+  "ScreenNewGame": {
+    "description": "Auto imported from components/layout/ScreenNewGame.vue"
+  }
+}
