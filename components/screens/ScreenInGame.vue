@@ -91,9 +91,10 @@ export default {
     setGameStarted(bool) {
       this.GAME_STARTED(bool);
     },
-    updateDefenderHP(slot, hp) {
+    updateDefenderHP(attacker, defender, hp) {
       this.UPDATE_DEFENDER_HP({
-        slot: slot,
+        attacker: attacker,
+        defender: defender,
         hp: hp,
       });
     },
@@ -103,7 +104,7 @@ export default {
       let weakened_attack = attacker.attack / 2; // divide his attack with 2
       let calc_percent = 100 - defender.defense; // 100% - defense
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
-      this.updateDefenderHP(defender.slot, get_total_hp);
+      this.updateDefenderHP(attacker.slot, defender.slot, get_total_hp);
     },
   },
 };
