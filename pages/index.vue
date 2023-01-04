@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <ScreenNewGame @startNewGame="newGame()" v-if="!isGameStarted" />
+    <ScreenNewGame @startNewGame="newGame()" v-show="!isGameStarted" />
     <ScreenInGame @startNewGame="newGame()" v-if="isGameStarted" />
   </div>
 </template>
@@ -20,12 +20,15 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_PLAYER", "GAME_STARTED"]),
+    ...mapMutations(["SET_PLAYER", "GAME_STARTED", "SET_ATTACKER"]),
     setPlayer(data) {
       this.SET_PLAYER(data);
     },
     setGameStarted(bool) {
       this.GAME_STARTED(bool);
+    },
+    setAttacker(attacker) {
+      this.SET_ATTACKER(attacker);
     },
     async fetchPokemon(id) {
       let data = await this.$axios.$get(
@@ -50,6 +53,9 @@ export default {
         data: await this.fetchPokemon(opponent2),
       });
       this.setGameStarted(true);
+      this.setAttacker(
+        utils.setFirstAttacker(this.player1.speed, this.player2.speed)
+      );
     },
   },
 };

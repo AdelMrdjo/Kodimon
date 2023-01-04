@@ -1,5 +1,6 @@
 export const state = () => ({
-  isGameStarted: false,
+  isGameStarted: false, // if 'false' show new game screen, else show in game screen
+  attacker: 1, // who is turn to attack, player1 (1) or player2 (2)
   player1: null,
   player2: null
 });
@@ -25,5 +26,8 @@ export const mutations = {
   },
   GAME_STARTED(state, data) {
     state.isGameStarted = data
+  },
+  SET_ATTACKER(state, data) {
+    state.attacker = data;
   }
 };

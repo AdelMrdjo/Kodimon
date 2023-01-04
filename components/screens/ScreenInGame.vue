@@ -14,8 +14,12 @@
           </div>
         </div>
         <div class="action">
-          <img src="/arrow.svg" alt="arrow" />
-          <button>Attack!</button>
+          <img
+            src="/arrow.svg"
+            alt="arrow"
+            :class="{ rotate: attacker == 1 }"
+          />
+          <button>Attack! {{ attacker }}</button>
         </div>
         <div class="opponent">
           <p class="name">{{ player2.name }}</p>
@@ -59,6 +63,9 @@ export default {
     },
     player2() {
       return this.$store.state.player2;
+    },
+    attacker() {
+      return this.$store.state.attacker;
     },
   },
   methods: {
@@ -123,6 +130,9 @@ export default {
   img {
     display: block;
     margin: 0 auto 32px;
+    &.rotate {
+      rotate: 180deg;
+    }
   }
 }
 /////////////
