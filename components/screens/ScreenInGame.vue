@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <HomeLogo class="home-logo" />
     <div class="in-game-screen">
       <div class="opponents">
         <div class="opponent">
@@ -207,6 +208,28 @@ export default {
     padding: 12px;
     font-weight: bold;
     height: 240px;
+  }
+}
+/////
+.home-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  :deep(.kodi-image) {
+    width: 110px;
+  }
+  :deep(.kodi-logo) {
+    width: 30px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    rotate: -30deg;
+    z-index: -1;
+  }
+  @include grid("desktop") {
+    top: 50px;
+    right: 50px;
   }
 }
 </style>

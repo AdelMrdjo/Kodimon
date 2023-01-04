@@ -31,8 +31,8 @@ export default {
     link: [
       {
         rel: "icon",
-        type: "image/jpg",
-        href: "/favicon.jpg",
+        type: "image/svg",
+        href: "/Kodi-logo.svg",
         sizes: "96x96",
       },
       {
