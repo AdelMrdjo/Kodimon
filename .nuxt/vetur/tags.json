@@ -2,7 +2,10 @@
   "HomeLogo": {
     "description": "Auto imported from components/layout/HomeLogo.vue"
   },
+  "ScreenInGame": {
+    "description": "Auto imported from components/screens/ScreenInGame.vue"
+  },
   "ScreenNewGame": {
-    "description": "Auto imported from components/layout/ScreenNewGame.vue"
+    "description": "Auto imported from components/screens/ScreenNewGame.vue"
   }
 }

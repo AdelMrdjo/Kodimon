@@ -1,5 +1,6 @@
 export { default as HomeLogo } from '../..\\components\\layout\\HomeLogo.vue'
-export { default as ScreenNewGame } from '../..\\components\\layout\\ScreenNewGame.vue'
+export { default as ScreenInGame } from '../..\\components\\screens\\ScreenInGame.vue'
+export { default as ScreenNewGame } from '../..\\components\\screens\\ScreenNewGame.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

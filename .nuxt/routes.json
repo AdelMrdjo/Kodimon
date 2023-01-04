@@ -1,12 +1,5 @@
 [
   {
-    "name": "game",
-    "path": "/game",
-    "component": "C:\\\\Users\\\\DT User6\\\\Desktop\\\\Kodimon\\\\pages\\\\game.vue",
-    "chunkName": "pages/game",
-    "_name": "_5570dfb1"
-  },
-  {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\DT User6\\\\Desktop\\\\Kodimon\\\\pages\\\\index.vue",

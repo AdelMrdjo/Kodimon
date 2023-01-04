@@ -3,14 +3,14 @@
     <div class="in-game-screen">
       <div class="opponents">
         <div class="opponent">
-          <p class="name">Squirtle</p>
-          <img src="/squirtle.png" alt="opponent-1" />
+          <p class="name">{{ player1.name }}</p>
+          <img :src="player1.image" alt="opponent-1" />
           <p class="label">Stats</p>
           <div class="stats">
-            <p>HP: 44</p>
-            <p>Attack: 48</p>
-            <p>Defense: 65</p>
-            <p>Speed: 43</p>
+            <p>HP: {{ player1.hp }}</p>
+            <p>Attack: {{ player1.attack }}</p>
+            <p>Defense: {{ player1.defense }}</p>
+            <p>Speed: {{ player1.speed }}</p>
           </div>
         </div>
         <div class="action">
@@ -18,14 +18,14 @@
           <button>Attack!</button>
         </div>
         <div class="opponent">
-          <p class="name">Eevee</p>
-          <img src="/eevee.png" alt="opponent-2" />
+          <p class="name">{{ player2.name }}</p>
+          <img :src="player2.image" alt="opponent-2" />
           <p class="label">Stats</p>
           <div class="stats">
-            <p>HP: 55</p>
-            <p>Attack: 50</p>
-            <p>Defense: 50</p>
-            <p>Speed: 55</p>
+            <p>HP: {{ player2.hp }}</p>
+            <p>Attack: {{ player2.attack }}</p>
+            <p>Defense: {{ player2.defense }}</p>
+            <p>Speed: {{ player2.speed }}</p>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@
         <div class="menu-container">
           <p class="label">Menu</p>
           <div class="buttons">
-            <button>Home</button>
-            <button>New game</button>
+            <button @click="setGameStarted(false)">Home</button>
+            <button @click="$emit('startNewGame')">New game</button>
             <button>New opponent</button>
           </div>
         </div>
@@ -51,7 +51,23 @@
   </div>
 </template>
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  computed: {
+    player1() {
+      return this.$store.state.player1;
+    },
+    player2() {
+      return this.$store.state.player2;
+    },
+  },
+  methods: {
+    ...mapMutations(["SET_PLAYER", "GAME_STARTED"]),
+    setGameStarted(bool) {
+      this.GAME_STARTED(bool);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -73,25 +89,13 @@ export default {};
 .name {
   font-weight: bold;
   text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 12px;
 }
 .label {
   font-weight: bold;
   text-align: left;
   margin-bottom: 8px;
-}
-button {
-  cursor: pointer;
-  height: 48px;
-  width: 230px;
-  border-radius: 50px;
-  background: $blue;
-  border: 4px solid $blue-light;
-  color: $white;
-  font-size: 16px;
-  transition: border ease-in-out 0.25s;
-  &:hover {
-    border-color: $blue;
-  }
 }
 .opponents {
   display: grid;
@@ -100,6 +104,9 @@ button {
   justify-content: space-between;
   align-items: flex-end;
   text-align: center;
+}
+.opponent img {
+  height: 150px;
 }
 .stats {
   text-align: left;

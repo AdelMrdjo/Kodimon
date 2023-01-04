@@ -23,4 +23,7 @@ export const mutations = {
       })[0].base_stat
     }
   },
+  GAME_STARTED(state, data) {
+    state.isGameStarted = data
+  }
 };
