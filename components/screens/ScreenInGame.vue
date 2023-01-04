@@ -5,7 +5,7 @@
         <div class="opponent">
           <div class="progress">
             <p>{{ player1.energy }} %</p>
-            <div class="progress-bar">
+            <div class="progress-bar" :class="setColorByHP(player1.energy)">
               <div
                 class="loaded"
                 :style="{ width: `${player1.energy}%` }"
@@ -33,7 +33,7 @@
         <div class="opponent">
           <div class="progress">
             <p>{{ player2.energy }} %</p>
-            <div class="progress-bar">
+            <div class="progress-bar" :class="setColorByHP(player2.energy)">
               <div
                 class="loaded"
                 :style="{ width: `${player2.energy}%` }"
@@ -73,6 +73,7 @@
   </div>
 </template>
 <script>
+import utils from "~/assets/js/utils";
 import { mapMutations } from "vuex";
 export default {
   computed: {
@@ -105,6 +106,9 @@ export default {
       let calc_percent = 100 - defender.defense; // 100% - defense
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
       this.updateDefenderHP(attacker.slot, defender.slot, get_total_hp);
+    },
+    setColorByHP(hp) {
+      return utils.setColorByHP(hp);
     },
   },
 };
@@ -151,15 +155,31 @@ export default {
 .progress-bar {
   width: 220px;
   height: 24px;
-  border: 4px solid $green;
   margin: 0 auto;
   border-radius: 12px;
   margin-bottom: 8px;
   .loaded {
     height: 100%;
-    background: $green-light;
     border-radius: 12px;
     transition: width ease-in-out 0.25s;
+  }
+  &.green {
+    border: 4px solid $green;
+    .loaded {
+      background: $green-light;
+    }
+  }
+  &.orange {
+    border: 4px solid $yellow;
+    .loaded {
+      background: $yellow-light;
+    }
+  }
+  &.red {
+    border: 4px solid $red;
+    .loaded {
+      background: $red-light;
+    }
   }
 }
 .stats {

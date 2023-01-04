@@ -8,6 +8,11 @@ const utils = {
   },
   setFirstAttacker(player1Speed, player2HPSpeed) {
     return player1Speed >= player2HPSpeed ? 1 : 2;
+  },
+  setColorByHP(hp) {
+    if (hp >= 50) return 'green'
+    else if (hp >= 30 && hp < 50) return 'orange'
+    else return 'red'
   }
 }
 
