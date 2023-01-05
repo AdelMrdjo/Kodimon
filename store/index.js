@@ -41,6 +41,7 @@ export const mutations = {
       state.attacker = state.attacker == 1 ? 2 : 1; // change attacker
     }
     else {
+      state[data.defender].energy = 0; // set HP to 0
       state.winner = state[data.attacker] // winner is last attacker
     }
   }

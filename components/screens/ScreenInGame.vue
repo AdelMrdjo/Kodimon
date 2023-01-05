@@ -3,7 +3,7 @@
     <HomeLogo class="home-logo" />
     <div class="in-game-screen">
       <div class="opponents">
-        <div class="opponent">
+        <div class="opponent player1">
           <div class="progress">
             <p>{{ player1.energy }} %</p>
             <div class="progress-bar" :class="setColorByHP(player1.energy)">
@@ -14,7 +14,10 @@
             </div>
           </div>
           <p class="name">{{ player1.name }}</p>
-          <img :src="player1.image" alt="opponent-1" />
+          <div class="image">
+            <img :src="player1.image" alt="opponent-1" class="real-image" />
+            <img src="/fight.gif" alt="fight-gif" class="fight-gif first" />
+          </div>
           <p class="label">Stats</p>
           <div class="stats">
             <p>HP: {{ player1.hp }}</p>
@@ -31,7 +34,7 @@
           />
           <button @click="attack()">Attack!</button>
         </div>
-        <div class="opponent">
+        <div class="opponent player2">
           <div class="progress">
             <p>{{ player2.energy }} %</p>
             <div class="progress-bar" :class="setColorByHP(player2.energy)">
@@ -42,7 +45,10 @@
             </div>
           </div>
           <p class="name">{{ player2.name }}</p>
-          <img :src="player2.image" alt="opponent-2" />
+          <div class="image">
+            <img :src="player2.image" alt="opponent-2" class="real-image" />
+            <img src="/fight.gif" alt="fight-gif" class="fight-gif second" />
+          </div>
           <p class="label">Stats</p>
           <div class="stats">
             <p>HP: {{ player2.hp }}</p>
@@ -94,9 +100,29 @@ export default {
       let attacker = this.attacker == 1 ? this.player1 : this.player2;
       let defender = this.attacker == 1 ? this.player2 : this.player1;
       let weakened_attack = attacker.attack / 2; // divide his attack with 2
-      let calc_percent = 100 - defender.defense; // 100% - defense
+      let calc_percent = 100 - defender.defense; // calculate 100% - defense
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
-      this.updateDefenderHP(attacker.slot, defender.slot, get_total_hp);
+      let tl = this.$gsap.timeline();
+      tl.to(
+        `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
+        { opacity: 0, duration: 0.25, ease: "power4", delay: -0.1 }
+      );
+      tl.to(`.${defender.slot} .image .fight-gif`, {
+        display: "block",
+        delay: -0.1,
+        duration: 0.25,
+        onComplete: () => {
+          this.updateDefenderHP(attacker.slot, defender.slot, get_total_hp);
+        },
+      });
+      tl.to(`.${defender.slot} .image .fight-gif`, {
+        display: "none",
+        duration: 0.5,
+      });
+      tl.to(
+        `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
+        { opacity: 1, duration: 0.25, ease: "power4", delay: -0.1 }
+      );
     },
     setColorByHP(hp) {
       return utils.setColorByHP(hp);
@@ -133,6 +159,7 @@ export default {
   margin-bottom: 8px;
 }
 .opponents {
+  position: relative;
   display: grid;
   width: 1300px;
   grid-template-columns: auto auto auto;
@@ -140,8 +167,27 @@ export default {
   align-items: flex-end;
   text-align: center;
 }
-.opponent img {
+.image {
   height: 150px;
+}
+.fight-gif {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 250px;
+  &.first {
+    left: 0;
+    display: none;
+  }
+  &.second {
+    right: 0;
+    display: none;
+  }
+}
+.opponent .real-image {
+  position: absolute;
+  height: 150px;
+  transform: translatex(-50%);
 }
 .progress-bar {
   width: 220px;
