@@ -38,18 +38,19 @@ export const mutations = {
     state.logs = [] // reset logs
   },
   UPDATE_DEFENDER_HP(state, data) {
+    let attacker_name = utils.capitalizeFirstLetter(state[data.attacker].name);
+    let defender_name = utils.capitalizeFirstLetter(state[data.defender].name);
     let new_hp = (state[data.defender].energy - data.hp).toFixed(2)
     if (new_hp > 0) {
       state[data.defender].energy = new_hp // update HP
       state.attacker = state.attacker == 1 ? 2 : 1; // change attacker
-      let attacker_name = utils.capitalizeFirstLetter(state[data.attacker].name);
-      let defender_name = utils.capitalizeFirstLetter(state[data.defender].name);
       if (data.hp == 0) state.logs.push(`${attacker_name} missed ${defender_name}`) // save logs when he miss
       else state.logs.push(`${attacker_name} attacked ${defender_name} for ${data.hp} dmg`); // save logs when he shoot 
     }
     else {
       state[data.defender].energy = 0; // set HP to 0
       state.winner = state[data.attacker] // winner is last attacker
+      state.logs.push(`${defender_name} died`)
     }
   },
   UPDATE_LOGS(state, data) {
