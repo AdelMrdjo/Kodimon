@@ -1,9 +1,27 @@
 {
+  "AttackButton": {
+    "description": "Auto imported from components/blocks/AttackButton.vue"
+  },
   "HomeLogo": {
     "description": "Auto imported from components/blocks/HomeLogo.vue"
   },
+  "LogsBox": {
+    "description": "Auto imported from components/blocks/LogsBox.vue"
+  },
   "MenuButtons": {
     "description": "Auto imported from components/blocks/MenuButtons.vue"
+  },
+  "PlayerBox": {
+    "description": "Auto imported from components/blocks/PlayerBox.vue"
+  },
+  "PlayerImage": {
+    "description": "Auto imported from components/blocks/PlayerImage.vue"
+  },
+  "PlayerProgressBar": {
+    "description": "Auto imported from components/blocks/PlayerProgressBar.vue"
+  },
+  "PlayerStats": {
+    "description": "Auto imported from components/blocks/PlayerStats.vue"
   },
   "ScreenGameOver": {
     "description": "Auto imported from components/screens/ScreenGameOver.vue"

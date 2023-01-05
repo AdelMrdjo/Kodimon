@@ -3,77 +3,41 @@
     <HomeLogo class="home-logo" />
     <div class="in-game-screen">
       <div class="opponents">
-        <div class="opponent player1">
-          <div class="progress">
-            <p>{{ player1.energy }} %</p>
-            <div class="progress-bar" :class="setColorByHP(player1.energy)">
-              <div
-                class="loaded"
-                :style="{ width: `${player1.energy}%` }"
-              ></div>
-            </div>
-          </div>
-          <p class="name">{{ player1.name }}</p>
-          <div class="image">
-            <p class="hit-info" :class="loseHP == 0 ? 'miss' : 'shoot'">
-              {{ loseHP == 0 ? "Miss !" : `${parseInt(loseHP)}dmg !` }}
-            </p>
-            <img :src="player1.image" alt="opponent-1" class="real-image" />
-            <img src="/fight.gif" alt="fight-gif" class="fight-gif first" />
-          </div>
-          <p class="label">Stats</p>
-          <div class="stats">
-            <p>HP: {{ player1.hp }}</p>
-            <p>Attack: {{ player1.attack }}</p>
-            <p>Defense: {{ player1.defense }}</p>
-            <p>Speed: {{ player1.speed }}</p>
-          </div>
-        </div>
-        <div class="action">
-          <img
-            src="/arrow.svg"
-            alt="arrow"
-            :class="{ rotate: attacker == 1 }"
-          />
-          <button :disabled="isAttackInProgress" @click="attack()">
-            Attack!
-          </button>
-        </div>
-        <div class="opponent player2">
-          <div class="progress">
-            <p>{{ player2.energy }} %</p>
-            <div class="progress-bar" :class="setColorByHP(player2.energy)">
-              <div
-                class="loaded"
-                :style="{ width: `${player2.energy}%` }"
-              ></div>
-            </div>
-          </div>
-          <p class="name">{{ player2.name }}</p>
-          <div class="image">
-            <p class="hit-info" :class="loseHP == 0 ? 'miss' : 'shoot'">
-              {{ loseHP == 0 ? "Miss !" : `${parseInt(loseHP)}dmg !` }}
-            </p>
-            <img :src="player2.image" alt="opponent-2" class="real-image" />
-            <img src="/fight.gif" alt="fight-gif" class="fight-gif second" />
-          </div>
-          <p class="label">Stats</p>
-          <div class="stats">
-            <p>HP: {{ player2.hp }}</p>
-            <p>Attack: {{ player2.attack }}</p>
-            <p>Defense: {{ player2.defense }}</p>
-            <p>Speed: {{ player2.speed }}</p>
-          </div>
-        </div>
+        <PlayerBox
+          class="player1"
+          :name="player1.name"
+          :image="player1.image"
+          :loseHP="loseHP"
+          :hp="player1.hp"
+          :energy="player1.energy"
+          :energyClass="setColorByHP(player1.energy)"
+          :attack="player1.attack"
+          :defense="player1.defense"
+          :speed="player1.speed"
+          :firstOrSecondGifClass="'first'"
+        />
+        <AttackButton
+          :attacker="attacker"
+          :isAttackInProgress="isAttackInProgress"
+          @attack="attack()"
+        />
+        <PlayerBox
+          class="player2"
+          :name="player2.name"
+          :image="player2.image"
+          :loseHP="loseHP"
+          :hp="player2.hp"
+          :energy="player2.energy"
+          :energyClass="setColorByHP(player2.energy)"
+          :attack="player2.attack"
+          :defense="player2.defense"
+          :speed="player2.speed"
+          :firstOrSecondGifClass="'second'"
+        />
       </div>
       <div class="menu-with-logs">
         <MenuButtons @startNewGame="$emit('startNewGame')" :winner="winner" />
-        <div class="logs-container">
-          <p class="label">Logs</p>
-          <div class="logs" id="logs">
-            <p v-for="(log, index) in logs" :key="index">{{ log }}</p>
-          </div>
-        </div>
+        <LogsBox :logs="logs" />
       </div>
     </div>
   </div>
@@ -110,6 +74,7 @@ export default {
   watch: {
     logs() {
       setTimeout(function () {
+        // scroll to bottom in logs box after update logs
         var objDiv = document.getElementById("logs");
         objDiv.scrollTop = objDiv.scrollHeight;
       }, 1);
@@ -206,17 +171,6 @@ export default {
     padding: 80px 0;
   }
 }
-.name {
-  font-weight: bold;
-  text-align: center;
-  text-transform: capitalize;
-  margin-bottom: 12px;
-}
-.label {
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 8px;
-}
 .opponents {
   position: relative;
   display: grid;
@@ -226,100 +180,12 @@ export default {
   align-items: flex-end;
   text-align: center;
 }
-.image {
-  height: 150px;
-}
-.fight-gif {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 250px;
-  &.first {
-    left: 0;
-    display: none;
-  }
-  &.second {
-    right: 0;
-    display: none;
-  }
-}
-.opponent .real-image {
-  position: absolute;
-  height: 150px;
-  transform: translatex(-50%);
-}
-.progress-bar {
-  width: 220px;
-  height: 24px;
-  margin: 0 auto;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  .loaded {
-    height: 100%;
-    border-radius: 12px;
-    transition: width ease-in-out 0.25s;
-  }
-  &.green {
-    border: 4px solid $green;
-    .loaded {
-      background: $green-light;
-    }
-  }
-  &.orange {
-    border: 4px solid $yellow;
-    .loaded {
-      background: $yellow-light;
-    }
-  }
-  &.red {
-    border: 4px solid $red;
-    .loaded {
-      background: $red-light;
-    }
-  }
-}
-.stats {
-  text-align: left;
-  border: 4px solid $yellow;
-  border-radius: 16px;
-  width: 260px;
-  background: $yellow-light;
-  padding: 10px;
-}
-////////////
-.action {
-  position: relative;
-  bottom: 20px;
-  img {
-    display: block;
-    margin: 0 auto 32px;
-    &.rotate {
-      rotate: 180deg;
-    }
-  }
-}
 /////////////
 .menu-with-logs {
   display: grid;
   grid-template-columns: auto 50%;
   justify-content: space-between;
   align-items: flex-end;
-}
-.logs-container {
-  .logs {
-    border: 4px solid $yellow;
-    background: $yellow-light;
-    border-radius: 16px;
-    padding: 12px;
-    font-weight: bold;
-    height: 240px;
-    overflow-y: auto;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
-    }
-  }
 }
 /////
 .home-logo {
@@ -343,24 +209,10 @@ export default {
     right: 50px;
   }
 }
-.hit-info {
-  position: absolute;
-  top: 0;
-  font-size: 40px;
-  opacity: 0;
-  &.miss {
-    color: $black;
-    rotate: -15deg;
-  }
-  &.shoot {
-    color: $red;
-    rotate: 15deg;
-  }
-}
-.player1 .hit-info {
+:deep(.player1 .hit-info) {
   left: 260px;
 }
-.player2 .hit-info {
+:deep(.player2 .hit-info) {
   right: 260px;
 }
 </style>
