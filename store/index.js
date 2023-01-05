@@ -49,7 +49,7 @@ export const mutations = {
       state[data.defender].energy = new_hp // update HP
       state.attacker = state.attacker == 1 ? 2 : 1; // change attacker
       if (data.hp == 0) state.logs.push(`${attacker_name} missed ${defender_name}`) // save logs when he miss
-      else state.logs.push(`${attacker_name} attacked ${defender_name} for ${data.hp} dmg`); // save logs when he shoot 
+      else state.logs.push(`${attacker_name} attacked ${defender_name} for ${parseInt(data.hp)} dmg`); // save logs when he shoot 
     }
     else {
       state[data.defender].energy = 0; // set HP to 0
