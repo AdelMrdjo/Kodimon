@@ -4,7 +4,9 @@
     <div class="buttons">
       <button @click="setGameStarted(false)">Home</button>
       <button @click="$emit('startNewGame')">New game</button>
-      <button :disabled="!winner">New opponent</button>
+      <button @click="$emit('newOpponent')" :disabled="!winner">
+        New opponent
+      </button>
     </div>
   </div>
 </template>

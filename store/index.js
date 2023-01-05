@@ -11,6 +11,7 @@ export const state = () => ({
 export const mutations = {
   SET_PLAYER(state, data) {
     state[data.slot] = {
+      "id": data.data.id,
       "name": data.data.name,
       "slot": data.slot,
       "image": data.data.sprites.other.dream_world.front_default,
@@ -35,7 +36,9 @@ export const mutations = {
   SET_ATTACKER(state, data) {
     state.attacker = data; // set attacker at new game depending higher speed
     state.winner = null // reset winner
-    state.logs = [] // reset logs
+  },
+  CLEAR_LOGS(state) {
+    state.logs = [] // clear logs
   },
   UPDATE_DEFENDER_HP(state, data) {
     let attacker_name = utils.capitalizeFirstLetter(state[data.attacker].name);
@@ -53,7 +56,10 @@ export const mutations = {
       state.logs.push(`${defender_name} died`)
     }
   },
-  UPDATE_LOGS(state, data) {
-    state.logs.push(data)
+  SET_CONTINUE_GAME(state) {
+    state.player1 = state.winner; // winner become a player1, new player2 is generated...
+    state.player1.energy = 100.00; // set full energy
+    state.player1.slot = "player1"; // set slot to 'player1"
+    state.winner = null; // reset winner
   }
 };

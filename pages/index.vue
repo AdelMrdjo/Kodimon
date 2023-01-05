@@ -4,6 +4,7 @@
     <ScreenInGame @startNewGame="newGame()" v-if="isGameStarted" />
     <ScreenGameOver
       @startNewGame="newGame()"
+      @newOpponent="newOpponent()"
       v-if="isGameStarted && winner"
       :winner="winner"
     />
@@ -28,12 +29,24 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_PLAYER", "GAME_STARTED", "SET_ATTACKER"]),
+    ...mapMutations([
+      "SET_PLAYER",
+      "GAME_STARTED",
+      "SET_ATTACKER",
+      "SET_CONTINUE_GAME",
+      "CLEAR_LOGS",
+    ]),
     setPlayer(data) {
       this.SET_PLAYER(data);
     },
     setGameStarted(bool) {
       this.GAME_STARTED(bool);
+    },
+    setContinueGame() {
+      this.SET_CONTINUE_GAME();
+    },
+    clearLogs() {
+      this.CLEAR_LOGS();
     },
     setAttacker(attacker) {
       this.SET_ATTACKER(attacker);
@@ -62,7 +75,24 @@ export default {
       });
       this.setGameStarted(true);
       this.setAttacker(
-        utils.setFirstAttacker(this.player1.speed, this.player2.speed)
+        utils.setFirstAttacker(this.player1.speed, this.player2.speed) // set attacker depending on their speed
+      );
+      this.clearLogs();
+    },
+    async newOpponent() {
+      let opponent1 = this.winner.id; // we'll keep the winner and set him as a player1
+      let opponent2;
+      do {
+        opponent2 = utils.getRandomNumber(1, 50); // get second opponent ID
+      } while (opponent1 == opponent2); // 'do-while' - avoid to get same opponent first==second
+      this.setPlayer({
+        // store player2 in VueX
+        slot: "player2",
+        data: await this.fetchPokemon(opponent2),
+      });
+      this.setContinueGame();
+      this.setAttacker(
+        utils.setFirstAttacker(this.player1.speed, this.player2.speed) // set attacker depending on their speed
       );
     },
   },
