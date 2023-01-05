@@ -5,7 +5,8 @@ export const state = () => ({
   player1: null,
   player2: null,
   winner: null,
-  logs: []
+  logs: [],
+  attackInProgress: false,
 });
 
 export const mutations = {
@@ -61,5 +62,8 @@ export const mutations = {
     state.player1.energy = 100.00; // set full energy
     state.player1.slot = "player1"; // set slot to 'player1"
     state.winner = null; // reset winner
+  },
+  CHANGE_ATTACK_PROGRESS(state, data) {
+    state.attackInProgress = data
   }
 };

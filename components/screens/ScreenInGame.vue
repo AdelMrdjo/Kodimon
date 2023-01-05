@@ -32,7 +32,9 @@
             alt="arrow"
             :class="{ rotate: attacker == 1 }"
           />
-          <button @click="attack()">Attack!</button>
+          <button :disabled="isAttackInProgress" @click="attack()">
+            Attack!
+          </button>
         </div>
         <div class="opponent player2">
           <div class="progress">
@@ -90,6 +92,9 @@ export default {
     winner() {
       return this.$store.state.winner;
     },
+    isAttackInProgress() {
+      return this.$store.state.attackInProgress;
+    },
   },
   watch: {
     logs() {
@@ -100,7 +105,14 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_PLAYER", "UPDATE_DEFENDER_HP"]),
+    ...mapMutations([
+      "SET_PLAYER",
+      "UPDATE_DEFENDER_HP",
+      "CHANGE_ATTACK_PROGRESS",
+    ]),
+    changeAttackProgress(bool) {
+      this.CHANGE_ATTACK_PROGRESS(bool);
+    },
     updateDefenderHP(attacker, defender, hp) {
       this.UPDATE_DEFENDER_HP({
         attacker: attacker,
@@ -109,6 +121,7 @@ export default {
       });
     },
     attack() {
+      this.changeAttackProgress(true);
       let attacker = this.attacker == 1 ? this.player1 : this.player2;
       let defender = this.attacker == 1 ? this.player2 : this.player1;
       let weakened_attack = attacker.attack / 2; // divide his attack with 2
@@ -134,7 +147,15 @@ export default {
       });
       tl.to(
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
-        { opacity: 1, duration: 0.25, ease: "power4", delay: -0.1 }
+        {
+          opacity: 1,
+          duration: 0.25,
+          ease: "power4",
+          delay: -0.1,
+          onComplete: () => {
+            this.changeAttackProgress(false);
+          },
+        }
       );
     },
     setColorByHP(hp) {
