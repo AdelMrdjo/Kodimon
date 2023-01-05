@@ -3,7 +3,7 @@
     <p class="winner">
       <span>{{ winner.name }}</span> won!
     </p>
-    <MenuButtons @startNewGame="$emit('startNewGame')" />
+    <MenuButtons @startNewGame="$emit('startNewGame')" :winner="winner" />
   </div>
 </template>
 

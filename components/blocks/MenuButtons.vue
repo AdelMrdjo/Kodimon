@@ -4,7 +4,7 @@
     <div class="buttons">
       <button @click="setGameStarted(false)">Home</button>
       <button @click="$emit('startNewGame')">New game</button>
-      <button>New opponent</button>
+      <button :disabled="!winner">New opponent</button>
     </div>
   </div>
 </template>
@@ -12,6 +12,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
+  props: ["winner"],
   methods: {
     ...mapMutations(["GAME_STARTED"]),
     setGameStarted(bool) {

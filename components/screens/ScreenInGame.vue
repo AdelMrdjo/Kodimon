@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="menu-with-logs">
-        <MenuButtons @startNewGame="$emit('startNewGame')" />
+        <MenuButtons @startNewGame="$emit('startNewGame')" :winner="winner" />
         <div class="logs-container">
           <p class="label">Logs</p>
           <div class="logs" id="logs">
@@ -86,6 +86,9 @@ export default {
     },
     logs() {
       return this.$store.state.logs;
+    },
+    winner() {
+      return this.$store.state.winner;
     },
   },
   watch: {
