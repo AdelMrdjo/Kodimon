@@ -15,6 +15,9 @@
           </div>
           <p class="name">{{ player1.name }}</p>
           <div class="image">
+            <p class="hit-info" :class="loseHP == 0 ? 'miss' : 'shoot'">
+              {{ loseHP == 0 ? "Miss !" : `${parseInt(loseHP)}dmg !` }}
+            </p>
             <img :src="player1.image" alt="opponent-1" class="real-image" />
             <img src="/fight.gif" alt="fight-gif" class="fight-gif first" />
           </div>
@@ -48,6 +51,9 @@
           </div>
           <p class="name">{{ player2.name }}</p>
           <div class="image">
+            <p class="hit-info" :class="loseHP == 0 ? 'miss' : 'shoot'">
+              {{ loseHP == 0 ? "Miss !" : `${parseInt(loseHP)}dmg !` }}
+            </p>
             <img :src="player2.image" alt="opponent-2" class="real-image" />
             <img src="/fight.gif" alt="fight-gif" class="fight-gif second" />
           </div>
@@ -76,6 +82,11 @@
 import utils from "~/assets/js/utils";
 import { mapMutations } from "vuex";
 export default {
+  data() {
+    return {
+      loseHP: null,
+    };
+  },
   computed: {
     player1() {
       return this.$store.state.player1;
@@ -128,6 +139,7 @@ export default {
       let calc_percent = 100 - defender.defense; // calculate 100% - defense
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
       if (utils.willYouMissTheShoot()) get_total_hp = 0; // if you miss the shoot, then set total hp to 0
+      this.loseHP = get_total_hp;
       let tl = this.$gsap.timeline();
       tl.to(
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
@@ -141,10 +153,23 @@ export default {
           this.updateDefenderHP(attacker.slot, defender.slot, get_total_hp);
         },
       });
+      tl.fromTo(
+        `.${defender.slot} .image .hit-info`,
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+        }
+      );
       tl.to(`.${defender.slot} .image .fight-gif`, {
         display: "none",
         duration: 0.5,
       });
+      tl.set(`.${defender.slot} .image .hit-info`, { opacity: 0 });
       tl.to(
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
         {
@@ -317,5 +342,25 @@ export default {
     top: 50px;
     right: 50px;
   }
+}
+.hit-info {
+  position: absolute;
+  top: 0;
+  font-size: 40px;
+  opacity: 0;
+  &.miss {
+    color: $black;
+    rotate: -15deg;
+  }
+  &.shoot {
+    color: $red;
+    rotate: 15deg;
+  }
+}
+.player1 .hit-info {
+  left: 260px;
+}
+.player2 .hit-info {
+  right: 260px;
 }
 </style>
