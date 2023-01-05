@@ -62,10 +62,8 @@
         <MenuButtons @startNewGame="$emit('startNewGame')" />
         <div class="logs-container">
           <p class="label">Logs</p>
-          <div class="logs">
-            <p>Eevee attacked Squirtle for 35.75 dmg</p>
-            <p>Squirtle attacked Eevee for 24 dmg</p>
-            <p>Eevee missed Squirtle</p>
+          <div class="logs" id="logs">
+            <p v-for="(log, index) in logs" :key="index">{{ log }}</p>
           </div>
         </div>
       </div>
@@ -86,6 +84,17 @@ export default {
     attacker() {
       return this.$store.state.attacker;
     },
+    logs() {
+      return this.$store.state.logs;
+    },
+  },
+  watch: {
+    logs() {
+      setTimeout(function () {
+        var objDiv = document.getElementById("logs");
+        objDiv.scrollTop = objDiv.scrollHeight;
+      }, 1);
+    },
   },
   methods: {
     ...mapMutations(["SET_PLAYER", "UPDATE_DEFENDER_HP"]),
@@ -102,6 +111,7 @@ export default {
       let weakened_attack = attacker.attack / 2; // divide his attack with 2
       let calc_percent = 100 - defender.defense; // calculate 100% - defense
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
+      if (utils.willYouMissTheShoot()) get_total_hp = 0; // if you miss the shoot, then set total hp to 0
       let tl = this.$gsap.timeline();
       tl.to(
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
@@ -254,6 +264,12 @@ export default {
     padding: 12px;
     font-weight: bold;
     height: 240px;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
   }
 }
 /////
