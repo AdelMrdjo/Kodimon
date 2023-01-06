@@ -32,7 +32,8 @@ export const mutations = {
     }
   },
   GAME_STARTED(state, data) {
-    state.isGameStarted = data
+    state.isGameStarted = data; // set game start
+    state.attackInProgress = false; // reset attack in progress
   },
   SET_ATTACKER(state, data) {
     state.attacker = data; // set attacker at new game depending higher speed

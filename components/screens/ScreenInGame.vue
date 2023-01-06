@@ -105,12 +105,21 @@ export default {
       let get_total_hp = ((weakened_attack / 100) * calc_percent).toFixed(2);
       if (utils.willYouMissTheShoot()) get_total_hp = 0; // if you miss the shoot, then set total hp to 0
       this.loseHP = get_total_hp;
+      // start animation
       let tl = this.$gsap.timeline();
+      if (attacker.slot == "player1")
+        // if first pokemon attacks second, move first to second
+        tl.to(`.${attacker.slot} .image .real-image`, { right: 0 });
+      if (attacker.slot == "player2")
+        // if second pokemon attacks first, move second to first
+        tl.to(`.${attacker.slot} .image .real-image`, { left: 130 });
       tl.to(
+        // hide both pokemons
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
         { opacity: 0, duration: 0.25, ease: "power4", delay: -0.1 }
       );
       tl.to(`.${defender.slot} .image .fight-gif`, {
+        // activate fight.gif
         display: "block",
         delay: -0.1,
         duration: 0.25,
@@ -119,6 +128,7 @@ export default {
         },
       });
       tl.fromTo(
+        // show hit message alert
         `.${defender.slot} .image .hit-info`,
         {
           opacity: 0,
@@ -131,22 +141,49 @@ export default {
         }
       );
       tl.to(`.${defender.slot} .image .fight-gif`, {
+        // hide fight.gif
         display: "none",
-        duration: 0.5,
+        duration: 0.25,
       });
-      tl.set(`.${defender.slot} .image .hit-info`, { opacity: 0 });
+      tl.set(`.${defender.slot} .image .hit-info`, { opacity: 0 }); // disable hit message alert
       tl.to(
+        // show again both pokemons
         `.${attacker.slot} .image .real-image, .${defender.slot} .image .real-image`,
         {
           opacity: 1,
           duration: 0.25,
           ease: "power4",
           delay: -0.1,
-          onComplete: () => {
-            this.changeAttackProgress(false);
-          },
         }
       );
+      if (attacker.slot == "player1")
+        // return attacker to his position
+        tl.to(`.${attacker.slot} .image .real-image`, {
+          right: "unset",
+          left: 130,
+          duration: 1,
+          delay: -0.1,
+          onComplete: () => {
+            document
+              .querySelector(`.${attacker.slot} .image .real-image`)
+              .removeAttribute("style"); // remove all inline CSS
+            this.changeAttackProgress(false);
+          },
+        });
+      if (attacker.slot == "player2")
+        // return attacker to his position
+        tl.to(`.${attacker.slot} .image .real-image`, {
+          left: "unset",
+          right: 0,
+          duration: 1,
+          delay: -0.1,
+          onComplete: () => {
+            document
+              .querySelector(`.${attacker.slot} .image .real-image`)
+              .removeAttribute("style"); // remove all inline CSS
+            this.changeAttackProgress(false);
+          },
+        });
     },
     setColorByHP(hp) {
       return utils.setColorByHP(hp);
