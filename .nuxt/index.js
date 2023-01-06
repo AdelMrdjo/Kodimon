@@ -84,7 +84,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"kodimon","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""}],"link":[{"rel":"icon","type":"image\u002Fsvg","href":"\u002FKodi-logo.svg","sizes":"96x96"},{"rel":"stylesheet","href":"https:\u002F\u002Fpro.fontawesome.com\u002Freleases\u002Fv5.10.0\u002Fcss\u002Fall.css"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Bellota:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"}],"style":[],"script":[]},
+    head: {"title":"kodimon","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"1. Git clone\r 2. npm install\r 3. npm run dev"}],"link":[{"rel":"icon","type":"image\u002Fsvg","href":"\u002FKodi-logo.svg","sizes":"96x96"},{"rel":"stylesheet","href":"https:\u002F\u002Fpro.fontawesome.com\u002Freleases\u002Fv5.10.0\u002Fcss\u002Fall.css"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Bellota:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"}],"style":[],"script":[]},
 
     store,
     router,
